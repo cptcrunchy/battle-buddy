@@ -12,3 +12,39 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  id        Int      @id @default(autoincrement())
+  username  String?
+  email     String   @unique
+  militaryBranch  String?
+  preferences  Json?
+  chatHistory ChatHistory[]
+}
+
+model ChatHistory {
+  id          Int      @id @default(autoincrement())
+  conversationId Int
+  userId       Int
+  timestamp    DateTime @default(now())
+  message     String
+  sentiment    String?
+  user         User     @relation(fields: [userId], references: [id])
+}
+
+model Resource {
+  id          Int      @id @default(autoincrement())
+  name        String
+  description String
+  type        String
+  tags        String[]
+  link        String?
+}
+
+model CBTTechnique {
+  id          Int      @id @default(autoincrement())
+  name        String
+  description String
+  steps       Json?
+  triggers    String[]
+}
