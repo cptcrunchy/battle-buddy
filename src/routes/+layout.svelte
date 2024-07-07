@@ -2,10 +2,6 @@
 	import '../app.css'
 	import { page } from '$app/stores'
 	import { onMount } from 'svelte'
-  import SignedIn from 'clerk-sveltekit/client/SignedIn.svelte';
-  import SignedOut from 'clerk-sveltekit/client/SignedOut.svelte';
-  import UserButton from 'clerk-sveltekit/client/UserButton.svelte';
-  import Wrap from '../internal/Wrap.svelte';
 
 	let mounted = false
 	onMount(() => mounted = true)
@@ -21,25 +17,11 @@
 				{ href: '/admin/profile', text: 'Profile', signedIn: true }
 			] as link}
 				{@const extraClasses = path === link.href ? 'bg-gray-500 text-white' : 'text-gray-900'}
-				<Wrap inside={SignedIn} when={link.signedIn}>
-					<a href={link.href} class="px-2 py-1 no-underline rounded {extraClasses}">{link.text}</a>
-				</Wrap>
+        <a href={link.href} class="px-2 py-1 no-underline rounded {extraClasses}">{link.text}</a>
 			{/each}
 		</nav>
 	</div>
 	<div class="flex gap-4 ml-auto">
-		<SignedIn>
-			<div data-testid="user-button">
-				<UserButton afterSignOutUrl="/" />
-			</div>
-		</SignedIn>
-
-		<SignedOut>
-			<nav class="flex items-center gap-x-2">
-				<a data-testid="sign-in" href="/sign-in">Sign in</a>
-				<a href="/sign-up">Sign up</a>
-			</nav>
-		</SignedOut>
 		<a
 			href="https://github.com/markjaquith/clerk-sveltekit"
 			class="w-8 h-8 fill-slate-600 hover:fill-slate-700"

@@ -11,26 +11,26 @@
 	},
 	"devDependencies": {
 		"@biomejs/biome": "1.8.3",
+		"@erickruano/clerk-svelte": "^0.0.6",
 		"@sveltejs/adapter-auto": "^3.0.0",
 		"@sveltejs/kit": "^2.0.0",
 		"@sveltejs/vite-plugin-svelte": "^3.0.0",
 		"@types/node": "^20.14.9",
+		"autoprefixer": "^10.4.19",
+		"postcss": "^8.4.38",
 		"prisma": "^5.16.1",
 		"svelte": "^4.2.18",
 		"svelte-check": "^3.6.0",
+		"tailwindcss": "^3.4.4",
 		"ts-node": "^10.9.2",
 		"tslib": "^2.4.1",
 		"typescript": "^5.5.3",
 		"vite": "^5.0.3",
-		"wrangler": "^3.63.1",
-		"autoprefixer": "^10.4.19",
-		"postcss": "^8.4.38",
-		"tailwindcss": "^3.4.4"
+		"wrangler": "^3.63.1"
 	},
 	"type": "module",
 	"dependencies": {
 		"@prisma/client": "^5.16.1",
-		"clerk-sveltekit": "^0.4.2",
 		"inngest": "^3.19.21"
 	}
 }
