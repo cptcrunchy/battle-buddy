@@ -11,12 +11,13 @@
 	},
 	"devDependencies": {
 		"@biomejs/biome": "1.8.3",
-		"@erickruano/clerk-svelte": "^0.0.6",
+		"@iconify/svelte": "^4.0.2",
 		"@sveltejs/adapter-auto": "^3.0.0",
 		"@sveltejs/kit": "^2.0.0",
 		"@sveltejs/vite-plugin-svelte": "^3.0.0",
 		"@types/node": "^20.14.9",
 		"autoprefixer": "^10.4.19",
+		"lucia": "^3.2.0",
 		"postcss": "^8.4.38",
 		"prisma": "^5.16.1",
 		"svelte": "^4.2.18",
@@ -30,7 +31,16 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@lucia-auth/adapter-prisma": "^4.0.1",
 		"@prisma/client": "^5.16.1",
-		"inngest": "^3.19.21"
+		"@xata.io/client": "0.0.0-next.v0bff19eb2ff4a0bbcef7cd1a58e23bd4db0b6d49",
+		"arctic": "^1.9.1",
+		"bits-ui": "^0.21.12",
+		"clsx": "^2.1.1",
+		"http-status-codes": "^2.3.0",
+		"inngest": "^3.19.21",
+		"oslo": "^1.2.1",
+		"tailwind-merge": "^2.4.0",
+		"tailwind-variants": "^0.2.1"
 	}
 }

@@ -14,22 +14,38 @@ datasource db {
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
-  username  String?
-  email     String   @unique
-  militaryBranch  String?
-  preferences  Json?
-  chatHistory ChatHistory[]
+  id       String    @id @default(cuid())
+  googleId String    @unique
+  name     String
+  email    String    @unique
+  sessions Session[]
+}
+
+model Session {
+  id        String   @id
+  userId    String
+  expiresAt DateTime
+
+  user User @relation(references: [id], fields: [userId], onDelete: Cascade)
+}
+
+model Member {
+  id             Int           @id @default(autoincrement())
+  username       String?
+  email          String        @unique
+  militaryBranch String?
+  preferences    Json?
+  chatHistory    ChatHistory[]
 }
 
 model ChatHistory {
-  id          Int      @id @default(autoincrement())
+  id             Int      @id @default(autoincrement())
   conversationId Int
-  userId       Int
-  timestamp    DateTime @default(now())
-  message     String
-  sentiment    String?
-  user         User     @relation(fields: [userId], references: [id])
+  userId         Int
+  timestamp      DateTime @default(now())
+  message        String
+  sentiment      String?
+  member         Member   @relation(fields: [userId], references: [id])
 }
 
 model Resource {
