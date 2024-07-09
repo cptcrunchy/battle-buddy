@@ -2,12 +2,15 @@ import { OAuth2RequestError } from "arctic";
 import { google, lucia } from "$lib/server/auth";
 import type { RequestEvent } from "@sveltejs/kit";
 import { StatusCodes as HTTP } from "http-status-codes";
-
-interface GoogleUser {
-  sub: string; // Unique identifier for the user
-  name: string; // Full name of the user
-  email: string; // Email address of the user
-}
+import { generateId } from "lucia";
+import { createAndSetSession } from "$lib/server/authUtils";
+import type { GoogleUser } from "$lib/DB";
+import {
+  getIfOAuthExits,
+  getIfUserExists,
+  insertNewUser,
+  updateUserOAuth,
+} from "$lib/server/dbUtils";
 
 export async function GET(event: RequestEvent): Promise<Response> {
   const code = event.url.searchParams.get("code");
@@ -38,35 +41,22 @@ export async function GET(event: RequestEvent): Promise<Response> {
       }
     );
     const googleUser: GoogleUser = await googleUserResponse.json();
-
-    const existingGoogleUser = await prisma.user.findUnique({
-      where: {
-        googleId: googleUser.sub,
-      },
-    });
-
+    // TODO: verify email first
+    const existingGoogleUser = await getIfUserExists(googleUser.email);
     if (existingGoogleUser) {
-      const session = await lucia.createSession(existingGoogleUser.id, {});
-      const sessionCookie = lucia.createSessionCookie(session.id);
-      event.cookies.set(sessionCookie.name, sessionCookie.value, {
-        path: ".",
-        ...sessionCookie.attributes,
-      });
+      // * Check if the user already has a Google OAuth account linked
+      const existingOAuthAccount = await getIfOAuthExits(
+        "google",
+        existingGoogleUser
+      );
+      if (!existingOAuthAccount) {
+        await updateUserOAuth(existingGoogleUser);
+      }
+      await createAndSetSession(lucia, existingGoogleUser.id, event.cookies);
     } else {
-      const newUser = await prisma.user.create({
-        data: {
-          email: googleUser.email, // Using email as username
-          googleId: googleUser.sub,
-          name: googleUser.name, // Name field may not always be present, handle accordingly
-        },
-      });
-
-      const session = await lucia.createSession(newUser.id, {});
-      const sessionCookie = lucia.createSessionCookie(session.id);
-      event.cookies.set(sessionCookie.name, sessionCookie.value, {
-        path: ".",
-        ...sessionCookie.attributes,
-      });
+      const newUser = await insertNewUser(googleUser);
+      console.log("newUser ", newUser);
+      await createAndSetSession(lucia, newUser.id, event.cookies);
     }
     return new Response(null, {
       status: HTTP.MOVED_TEMPORARILY,
