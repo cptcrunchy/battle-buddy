@@ -31,9 +31,11 @@ const authGuard: Handle = async ({ event, resolve }) => {
   const { user } = event.locals;
 
   if (user) {
-    event.locals.userInfo = await prisma.user.findFirst({
+    const userInfo = await prisma.user.findUnique({
       where: { id: user.id },
+      include: { oAuthAccounts: true },
     });
+    user.oAuthAccounts = userInfo.oAuthAccounts;
   }
 
   return resolve(event);

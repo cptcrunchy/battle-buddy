@@ -6,7 +6,7 @@
   import { getInitialsFromName } from "$lib/utils";
 
   export let user;
-  export let userInfo;
+  $: console.log(user);
   const pageLinks = [
     { href: "/admin", text: "Admin Panel", signedIn: false },
     { href: "/admin/profile", text: "Profile", signedIn: true },
@@ -30,9 +30,9 @@
     {#if user}
       <!-- TODO: User Avatar -->
       <Avatar.Root>
-        <Avatar.Image src={userInfo?.picture} alt="user" />
+        <Avatar.Image src={user.picture} alt="user" />
         <Avatar.AvatarFallback
-          >{getInitialsFromName(userInfo?.name)}</Avatar.AvatarFallback
+          >{getInitialsFromName(user.name)}</Avatar.AvatarFallback
         >
       </Avatar.Root>
       <Button variant="outline" href="/logout">Log out</Button>

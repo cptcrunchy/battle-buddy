@@ -4,11 +4,11 @@
   import type { LayoutData } from "./$types";
 
   export let data: LayoutData;
-  let { user, userInfo } = data;
-  $: ({ user, userInfo } = data);
+  let { user } = data;
+  $: ({ user } = data);
 </script>
 
-<Navbar {user} {userInfo} />
+<Navbar {user} />
 
 <main class="p-4 m-auto max-w-4xl">
   <slot />
