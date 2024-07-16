@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@google/generative-ai':
+        specifier: ^0.15.0
+        version: 0.15.0
       '@lucia-auth/adapter-prisma':
         specifier: ^4.0.1
         version: 4.0.1(@prisma/client@5.16.1(prisma@5.16.1))(lucia@3.2.0)
@@ -496,6 +499,10 @@ packages:
 
   '@floating-ui/utils@0.2.4':
     resolution: {integrity: sha512-dWO2pw8hhi+WrXq1YJy2yCuWoL20PddgGaqTgVe4cOS9Q6qklXCiA1tJEqX6BEwRNSCP84/afac9hd4MS+zEUA==}
+
+  '@google/generative-ai@0.15.0':
+    resolution: {integrity: sha512-zs37judcTYFJf1U7tnuqnh7gdzF6dcWj9pNRxjA5JTONRoiQ0htrRdbefRFiewOIfXwhun5t9hbd2ray7812eQ==}
+    engines: {node: '>=18.0.0'}
 
   '@iconify/svelte@4.0.2':
     resolution: {integrity: sha512-6BSrU85FzGfhQD3bTXpnkCCvBAglEt8T9QednVnXAYm4C+d3464y+pYMzhQNJm5mPId2cuiw+2wXlDflXllHDw==}
@@ -2211,6 +2218,8 @@ snapshots:
       '@floating-ui/utils': 0.2.4
 
   '@floating-ui/utils@0.2.4': {}
+
+  '@google/generative-ai@0.15.0': {}
 
   '@iconify/svelte@4.0.2(svelte@4.2.18)':
     dependencies:

@@ -31,6 +31,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@google/generative-ai": "^0.15.0",
 		"@lucia-auth/adapter-prisma": "^4.0.1",
 		"@prisma/client": "^5.16.1",
 		"@xata.io/client": "0.0.0-next.v0bff19eb2ff4a0bbcef7cd1a58e23bd4db0b6d49",
